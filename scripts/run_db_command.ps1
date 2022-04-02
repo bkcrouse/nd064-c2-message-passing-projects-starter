@@ -7,9 +7,14 @@
         PS C:\> run_db_command.ps1 -Name postgres-5f676c995d-gppfj
 
         This is the powershell version of the ./scripts/run_db_command.ps1 to run from a Windows workstation running powershell.
+.EXAMPLE
+        PS C:\> run_db_command.ps1
+
+        This will use the kubectl command to query for a pod named 'postgres'
 
 .PARAMETER Name
         The name of the postgres node to see. Run kubelctl get pods to view the name give to the postgres pod
+        
         PS C:\> get pods
         NAME                              READY   STATUS    RESTARTS   AGE
         udaconnect-api-89dbffbf9-n6tmz    1/1     Running   0          12m
@@ -32,9 +37,9 @@
 #>
 [cmdletbinding()]
 param(
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory=$false)]
         [string]
-        $Name
+        $Name = "$(kubectl get pods --selector=app=postgres -o jsonpath='{.items[*].metadata.name}')"
 )
 
 # Set database configurations

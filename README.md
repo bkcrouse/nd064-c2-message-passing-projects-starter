@@ -75,6 +75,12 @@ Type `exit` to exit the virtual OS and you will find yourself back in your compu
 
 Afterwards, you can test that `kubectl` works by running a command like `kubectl describe services`. It should not return any errors.
 
+***Windows via powershell ***
+```powershell
+ PS C:\> vagrant ssh master -- sudo cat /etc/rancher/k3s/k3s.yaml > ~/.kube/config
+ Password: ******
+ 
+ ```
 ### Steps
 1. `kubectl apply -f deployment/db-configmap.yaml` - Set up environment variables for the pods
 2. `kubectl apply -f deployment/db-secret.yaml` - Set up secrets for the pods
