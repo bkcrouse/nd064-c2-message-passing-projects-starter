@@ -1,6 +1,7 @@
 default_box = "generic/opensuse15"
 default_timeout = 3600
 max_node_port = 30010
+master_ip_address = "192.168.0.200"
 
 Vagrant.configure("2") do |config|
   config.vm.boot_timeout = default_timeout
@@ -15,7 +16,7 @@ Vagrant.configure("2") do |config|
       v.vmx["memsize"] = "4096"
       v.vmx["numvcpus"] = "2"
       v.vmx["cpuid.coresPerSocket"] = "2"
-      override.vm.network 'private_network', ip: "192.168.0.200"
+      override.vm.network 'private_network', ip: master_ip_address
 
       # NodePort Port Forwardings for VMware
       # Limited to 10 for the project as this seems to be the most I could generate.
@@ -29,7 +30,7 @@ Vagrant.configure("2") do |config|
     master.vm.provider "virtualbox" do |vb, override|
       vb.memory = "3072"
       vb.name = "master"
-      override.vm.network 'private_network', ip: "192.168.0.200",  virtualbox__intnet: true
+      override.vm.network 'private_network', ip: master_ip_address,  virtualbox__intnet: true
 
       # NodePort Port Forwardings from Vagrantfile.orig for Virtualbox
       # expose NodePort IP's
